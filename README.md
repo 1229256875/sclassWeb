@@ -1,2 +1,2 @@
 # sclassWeb
-q
+qs
