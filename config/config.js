@@ -136,8 +136,16 @@ export default {
               icon: 'smile',
               path: '/historyCourse',
               component: './historyCourse',
-              authority: ['student', 'teacher'],
-            }, //添加课程
+              authority: ['student'],
+            },
+            {
+              name: 'history',
+              icon: 'smile',
+              path: '/teacherHistoryCourse',
+              component: './teacherHistoryCourse',
+              authority: ['teacher'],
+            },
+             //添加课程
             {
               name: 'addCourse',
               icon: 'PlusOutlined',

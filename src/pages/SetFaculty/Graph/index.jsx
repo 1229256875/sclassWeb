@@ -75,7 +75,12 @@ const Graph = () => {
         graph.render();
         graph.fitView();
       });
-  }, [data]);
+  }, []);
+
+
+  useEffect(()=>{
+
+  },[data])
 }
 
 export default Graph;

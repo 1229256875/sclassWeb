@@ -114,30 +114,30 @@ const RegistrationForm = (props) => {
   const formItemLayout = {
     labelCol: {
       xs: {
-        span: 24,
+        span: 12,
       },
       sm: {
-        span: 8,
+        span: 12,
       },
     },
     wrapperCol: {
       xs: {
-        span: 24,
+        span: 12,
       },
       sm: {
-        span: 16,
+        span: 12,
       },
     },
   };
   const tailFormItemLayout = {
     wrapperCol: {
       xs: {
-        span: 24,
+        span: 12,
         offset: 0,
       },
       sm: {
-        span: 16,
-        offset: 8,
+        span: 12,
+        offset: 0,
       },
     },
   };

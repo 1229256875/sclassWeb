@@ -28,9 +28,9 @@ const Model = {
       return response;
     },
 
-    * getCaptcha({ payload }, { call }) {
-      yield call(getFakeCaptcha, payload);
-    },
+    // * getCaptcha({ payload }, { call }) {
+    //   yield call(getFakeCaptcha, payload);
+    // },
 
     logout() {
       const { redirect } = getPageQuery(); // Note: There may be security issues, please note
@@ -48,9 +48,9 @@ const Model = {
   reducers: {
     changeLoginStatus(state, { payload }) {
       return {
-        ...state,
-        status: payload.status,
-        type: payload.type,
+        // ...state,
+        // status: payload.status,
+        // type: payload.type,
       };
     },
   },

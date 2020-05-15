@@ -72,6 +72,8 @@ const AddCourse = (props) => {
     }
   ];
 
+  const {TextArea} = Input;
+
   return (
     <div className={styles.container}>
       <Form onSubmit={submit} {...formItemLayout}
@@ -109,6 +111,14 @@ const AddCourse = (props) => {
               <Option value="2017">2017</Option>
               <Option value="2016">2016</Option>
             </Select>
+          )}
+        </Form.Item>
+
+        <Form.Item
+          label="课程简介"
+        >
+          {getFieldDecorator('info')(
+            <TextArea placeholder="请输入课程简介" id="info"/>
           )}
         </Form.Item>
 
