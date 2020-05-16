@@ -27,6 +27,11 @@ const Lists = (props) => {
         key: 'teacher',
       },
       {
+        title: '授课学年',
+        dataIndex: 'courseYear',
+        key: 'courseYear',
+      },
+      {
         title: '授课教室',
         key: 'classroom',
         dataIndex: 'classroom',
@@ -87,6 +92,11 @@ const Lists = (props) => {
         key: 'teacher',
       },
       {
+        title: '授课学年',
+        dataIndex: 'courseYear',
+        key: 'courseYear',
+      },
+      {
         title: '授课教室',
         key: 'classroom',
         dataIndex: 'classroom',
@@ -141,6 +151,11 @@ const Lists = (props) => {
         title: '授课教师',
         dataIndex: 'teacher',
         key: 'teacher',
+      },
+      {
+        title: '授课学年',
+        dataIndex: 'courseYear',
+        key: 'courseYear',
       },
       {
         title: '授课教室',
@@ -256,7 +271,8 @@ const Lists = (props) => {
             <Radio value="rfAudit">已拒绝</Radio>
           </Radio.Group>
           <Divider/>
-          <Table columns={colums} dataSource={data} loading={load}/>
+          <Table rowKey={'id'}
+            columns={colums} dataSource={data} loading={load}/>
         </div>
       </div>
     );

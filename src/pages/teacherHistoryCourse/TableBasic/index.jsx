@@ -59,7 +59,7 @@ const Lists = (props) => {
     },
     {
       title: '课程信息',
-      key: 'id',
+      key: 'info',
       dataIndex: 'info',
       render: (text, record) =>{
         let less = '';
@@ -76,10 +76,9 @@ const Lists = (props) => {
     },
     {
       title: '审核状态',
-      key: 'id',
+      key: 'state',
       dataIndex: 'state',
       render: (state, record) =>{
-        console.log('123', state)
         let a = ''
         let color = ''
          
@@ -205,28 +204,6 @@ const Lists = (props) => {
   };
 
  
-
-  
-
-  const getGrade = (id) => {
-    dispatch({
-      type: 'courseList/getGrade',
-      payload: id,
-    })
-      .then((rst) => {
-        if (rst.status === 200) {
-          if (rst.data.status === 200) {
-            showModalGrade("您的课程得分为" + rst.data.data)
-            // message.info("恭喜你,课程退订成功")
-          } else {
-            showModalGrade(rst.data.msg)
-          }
-        } else {
-          showModalGrade("服务器错误")
-        }
-      })
-
-  }
 
   const handleCancel = () => {
     console.log('Clicked cancel button');

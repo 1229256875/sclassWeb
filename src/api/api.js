@@ -71,3 +71,8 @@ export function updateFaculty(params) {
 export function deleteFaculty(params) {
     return http.get('/api/deleteFaculty', params)
 }
+
+//获取时间列表
+export function getTime(){
+    return http.get('/api/getTime');
+}
