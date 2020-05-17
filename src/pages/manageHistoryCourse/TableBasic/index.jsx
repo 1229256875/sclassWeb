@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {Table, Divider, Tag, Button, message} from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Table, Divider, Tag, Button, message } from 'antd';
 import styles from './index.less';
-import {connect} from 'dva';
+import { connect } from 'dva';
 
 
 const Lists = (props) => {
@@ -19,6 +19,13 @@ const Lists = (props) => {
       title: '开始时间',
       dataIndex: 'startTime',
       key: 'startTime',
+      render: tar => {
+        if (tar && tar.length !== 0) {
+          return <span>{tar}</span>
+        } else {
+          return <span>未知</span>
+        }
+      }
     },
     {
       title: '授课教师',
@@ -59,25 +66,25 @@ const Lists = (props) => {
       render: (text, record) => (
         // console.log(record.id),
         <span>
-            <Button onClick={() => selectCourse(record.id)}>选择</Button>
-          </span>
+          <Button onClick={() => selectCourse(record.id)}>删除</Button>
+        </span>
       ),
     },
   ];
-  console.log(props);
 
-  const {dispatch} = props;
+  const { dispatch } = props;
 
   const selectCourse = (courseId) => {
     dispatch({
-      type: 'courseList/selectCourse',
+      type: 'course/deleteCourse',
       payload: {
-        courseId,
+        id: courseId,
       }
     }).then((rst) => {
       if (rst.status === 200) {
         if (rst.data.status === 200) {
-          message.info("恭喜你,选课成功")
+          message.success("删除成功")
+          getData();
         } else {
           message.error(rst.data.msg)
         }
@@ -88,21 +95,25 @@ const Lists = (props) => {
   };
 
   useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = () => {
     dispatch({
       type: 'course/getHistCouAdmin',
     });
-  }, []);
+  }
 
 
   // getDataInfo();
   return <div className={styles.container}>
     <div id="components-table-demo-basic">
-      <Table columns={columns} dataSource={props.historyCourseData}/>
+      <Table columns={columns} dataSource={props.historyCourseData} />
     </div>
   </div>;
 }
 
-export default connect(({course}) => ({
+export default connect(({ course }) => ({
   historyCourseData: course.historyCourseData,
   count: course.count,
 }))(Lists);

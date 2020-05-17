@@ -159,7 +159,7 @@ const TimeTable = (props) => {
             }}
           >
             <Form.Item
-              label="年份: "
+              label="份: "
               name="timeName"
               rules={[
                 {

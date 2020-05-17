@@ -33,11 +33,11 @@ const plugins = [
       },
       pwa: pwa
         ? {
-            workboxPluginMode: 'InjectManifest',
-            workboxOptions: {
-              importWorkboxFrom: 'local',
-            },
-          }
+          workboxPluginMode: 'InjectManifest',
+          workboxOptions: {
+            importWorkboxFrom: 'local',
+          },
+        }
         : false, // default close dll, because issue https://github.com/ant-design/ant-design-pro/issues/4665
       // dll features https://webpack.js.org/plugins/dll-plugin/
       // dll: {
@@ -145,7 +145,7 @@ export default {
               component: './teacherHistoryCourse',
               authority: ['teacher'],
             },
-             //添加课程
+            //添加课程
             {
               name: 'addCourse',
               icon: 'PlusOutlined',
@@ -154,19 +154,34 @@ export default {
               authority: ['teacher'],
             }, //设置(选课)
             {
-              name: 'setTime',
+              name: 'set',
               icon: 'smile',
-              path: '/setTime',
-              component: './setTime',
+              path: 'set',
               authority: ['admin'],
-            }, //审核课程
+              routes: [
+                {
+                  name: 'setTime',
+                  icon: 'smile',
+                  path: '/set/setTime',
+                  component: './set/setTime',
+                  authority: ['admin'],
+                },
+                {
+                  name: 'setRoom',
+                  icon: 'smile',
+                  path: '/set/room',
+                  component: './set/room',
+                }
+              ]
+            }, 
+             //审核课程
             {
               name: 'auditCourse',
               icon: 'smile',
               path: '/auditCourse',
               component: './auditCourse',
               authority: ['admin'],
-            }, //管理员历史课程
+            },//管理员历史课程
             {
               name: 'manageHistoryCourse',
               icon: 'smile',

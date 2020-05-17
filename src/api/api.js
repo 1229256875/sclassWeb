@@ -73,6 +73,35 @@ export function deleteFaculty(params) {
 }
 
 //获取时间列表
-export function getTime(){
+export function getTime() {
     return http.get('/api/getTime');
+}
+
+//修改时间
+
+
+
+//修改课程审核状态
+export function updateCourseApproval(params) {
+    return http.post('/api/updateCourseApproval', params)
+}
+//删除课程
+export function deleteCourse(params){
+    return http.post('/api/deleteCourse', params)
+}
+
+//添加教室
+export function insertRoomName(params){
+    return http.post('/api/insertRoomName', params)
+}
+
+//删除教室
+export function deleteRoomName(params){
+    return http.get('/api/deleteRoomName', params)
+}
+
+
+//查询教室
+export function getLikeRoomName(params){
+    return http.get('/api/getLikeRoomName', params)
 }
