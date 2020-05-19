@@ -54,7 +54,7 @@ const TimeTable = (props) => {
       dataIndex: 'startTime',
       render: data => {
         if (data || data.length > 0) {
-          let times = moment(parseInt(data)).format("YYYY-MM-DD");
+          let times = moment(parseInt(data)).format("YYYY-MM-DD HH:mm:ss");
           return <span> {times} </span>;
         }
         return <span>未知</span>
@@ -66,7 +66,7 @@ const TimeTable = (props) => {
       dataIndex: 'endTime',
       render: data => {
         if (data || data.length > 0) {
-          let times = moment(parseInt(data)).format("YYYY-MM-DD");
+          let times = moment(parseInt(data)).format("YYYY-MM-DD HH:mm:ss");
           return <span> {times} </span>;
         }
         return <span>未知</span>
