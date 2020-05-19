@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Table, Divider, Radio, Button, message, Modal, Input, Form } from 'antd';
+import { Table, Divider, Radio, Button, message, Modal, Input, Form, Select, Tooltip } from 'antd';
 import styles from './index.less';
 import { connect } from 'dva';
 import Model from '@/models/login';
@@ -20,6 +20,10 @@ const Lists = (props) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
 
   const [fromData, setFromData] = useState({})
+
+  const [selectData, setSelectData] = useState([])
+
+  const [saveAllRoom, setSaveAllRoom] = useState(null)
 
   const columnAudit = [
     {
@@ -93,11 +97,11 @@ const Lists = (props) => {
       key: 'courseName',
       render: text => <a>{text}</a>,
     },
-    {
-      title: '开始时间',
-      dataIndex: 'startTime',
-      key: 'startTime',
-    },
+    // {
+    //   title: '开始时间',
+    //   dataIndex: 'startTime',
+    //   key: 'startTime',
+    // },
     {
       title: '授课教师',
       dataIndex: 'teacher',
@@ -108,32 +112,33 @@ const Lists = (props) => {
       dataIndex: 'courseYear',
       key: 'courseYear',
     },
-    {
-      title: '授课教室',
-      key: 'classroom',
-      dataIndex: 'classroom',
-      // render: tags => (
-      //   <span>
-      //     {tags.map(tag => {
-      //       let color = tag.length > 5 ? 'geekblue' : 'green';
-      //
-      //       if (tag === 'loser') {
-      //         color = 'volcano';
-      //       }
-      //
-      //       return (
-      //         <Tag color={color} key={tag}>
-      //           {tag.toUpperCase()}
-      //         </Tag>
-      //       );
-      //     })}
-      //   </span>
-      // ),
-    },
+    // {
+    //   title: '授课教室',
+    //   key: 'classroom',
+    //   dataIndex: 'classroom',
+      
+    // },
     {
       title: '选课人数',
       key: 'count',
       dataIndex: 'count',
+    },
+    {
+      title: '课程信息',
+      key: 'info',
+      dataIndex: 'info',
+      render: (text, record) => {
+        let less = '';
+        if (text && text.length > 5) {
+          less = text.substring(0, 5) + '...';
+        } else {
+          less = text;
+        }
+        return <Tooltip title={text}>
+          <span>{less}</span>
+        </Tooltip>
+
+      }
     },
     {
       title: '操作',
@@ -157,11 +162,11 @@ const Lists = (props) => {
       key: 'courseName',
       render: text => <a>{text}</a>,
     },
-    {
-      title: '开始时间',
-      dataIndex: 'startTime',
-      key: 'startTime',
-    },
+    // {
+    //   title: '开始时间',
+    //   dataIndex: 'startTime',
+    //   key: 'startTime',
+    // },
     {
       title: '授课教师',
       dataIndex: 'teacher',
@@ -172,32 +177,32 @@ const Lists = (props) => {
       dataIndex: 'courseYear',
       key: 'courseYear',
     },
-    {
-      title: '授课教室',
-      key: 'classroom',
-      dataIndex: 'classroom',
-      // render: tags => (
-      //   <span>
-      //     {tags.map(tag => {
-      //       let color = tag.length > 5 ? 'geekblue' : 'green';
-      //
-      //       if (tag === 'loser') {
-      //         color = 'volcano';
-      //       }
-      //
-      //       return (
-      //         <Tag color={color} key={tag}>
-      //           {tag.toUpperCase()}
-      //         </Tag>
-      //       );
-      //     })}
-      //   </span>
-      // ),
-    },
+    // {
+    //   title: '授课教室',
+    //   key: 'classroom',
+    //   dataIndex: 'classroom',
+    // },
     {
       title: '选课人数',
       key: 'count',
       dataIndex: 'count',
+    },
+    {
+      title: '课程信息',
+      key: 'info',
+      dataIndex: 'info',
+      render: (text, record) => {
+        let less = '';
+        if (text && text.length > 5) {
+          less = text.substring(0, 5) + '...';
+        } else {
+          less = text;
+        }
+        return <Tooltip title={text}>
+          <span>{less}</span>
+        </Tooltip>
+
+      }
     },
     {
       title: '操作',
@@ -218,6 +223,8 @@ const Lists = (props) => {
   const handleCancel = () => {
     setVisible(false)
     setVisibeSub(false)
+    setSelectData([])
+    form.resetFields();
   }
 
   const audit = (type) => {
@@ -247,9 +254,9 @@ const Lists = (props) => {
 
 
   const updateCourse = (course) => {
-
-
-    console.log(course)
+    if (saveAllRoom === null) {
+      getSelect()
+    }
     setFromData(course)
     setVisibeSub(true)
     return
@@ -294,6 +301,7 @@ const Lists = (props) => {
   useEffect(() => {
     getData()
   }, []);
+
   const getData = () => {
     setLoad(true);
     dispatch({
@@ -311,14 +319,75 @@ const Lists = (props) => {
 
   }, [props.auditList])
 
+  const getSelect = (name) => {
+    if (dispatch) {
+      dispatch({
+        type: 'time/getLikeRoomName',
+        payload: {
+          likeName: name,
+        }
+      }).then((rst) => {
+        setSaveAllRoom(rst.data)
+        return rst.data;
+      })
+    }
+  }
+
+  const selectOnChange = e => {
+    if (e === null) {
+      return
+    }
+    
+    if (saveAllRoom === null) {
+      getSelect()
+    }
+
+    const result = saveAllRoom && saveAllRoom.filter(tag => { return tag.roomName.includes(e)});
+
+    setSelectData(result)
+  }
+
+
+  const onFinish = (value) => {
+    value.preventDefault();
+
+    props.form.validateFields((err, values) => {
+      if (!err && dispatch) {
+        dispatch({
+          type: 'course/updateCourse',
+          payload: {
+            id: fromData.id,
+            classroomId: values.classroom === fromData.classroom ? null : values.classroom,
+            count: values.count,
+            courseNameId: values.courseName,
+          },
+        }).then((rst) => {
+          if (rst && rst.status === 200) {
+            message.success('修改成功')
+            getData();
+            handleCancel();
+          } else {
+            message.error(rst.msg)
+          }
+        })
+      } else {
+        console.log(err)
+      }
+
+    })
+  }
+
 
 
   const [selectionType, setSelectionType] = useState('audit');
   // getDataInfo();
 
-  const {form} = props;
+  const { form } = props;
 
+
+  const { getFieldDecorator } = form;
   const { TextArea } = Input;
+  const { Option } = Select;
   return (
     <div className={styles.container}>
       <div id="components-table-demo-basic">
@@ -356,34 +425,77 @@ const Lists = (props) => {
 
         </Modal>
         <Modal
-          title="审核课程"
+          title="修改课程"
           visible={visibleSub}
           confirmLoading={confirmLoading}
           onCancel={handleCancel}
           footer={null}
         >
-        <Form 
-          {...layout}
-          initialValues ={{
-            fromData
-          }}
-          onFinish = {() => {console.log(123)}}
+          <Form
+            {...layout}
+            onSubmit={onFinish}
           >
-            <Form.Item 
-            label = 'classroom'
-            name = 'classroom'
+            <Form.Item
+              label='课程名称'
             >
-            <Input />
+              {getFieldDecorator('courseName', {
+                initialValue: fromData.courseName,
+                // config
+              })
+                (<Input />
+                )}
             </Form.Item>
-        </Form>
 
-      </Modal>
+            <Form.Item
+              label='授课教室'
+            >
+              {getFieldDecorator('classroom', {
+                initialValue: fromData.classroom,
+                // config
+              })
+                (<Select
+                  showSearch
+                  // value={this.state.value}
+                  defaultActiveFirstOption={false}
+                  showArrow={false}
+                  filterOption={false}
+                  onSearch={selectOnChange}
+                  notFoundContent={'请输入数据进行查询'}
+                  value='123'
+                // onChange={selectOnChange}
+                >
+                  {selectData && selectData.map(d => (
+                    <Option key={d.id} >{d.roomName}</Option>
+                  ))
+                  }
+                </Select>
+                )}
+            </Form.Item>
+
+            <Form.Item
+              label='授课人数'
+            >
+              {getFieldDecorator('count', {
+                initialValue: fromData.count,
+                // config
+              })
+                (<Input />
+                )}
+            </Form.Item>
+            <Form.Item {...tailLayout}>
+              <Button type="primary" htmlType="submit">
+                提交
+            </Button>
+            </Form.Item>
+          </Form>
+
+        </Modal>
       </div>
     </div>
   );
 };
 
-const EditableFormTable = Form.create()(Lists); 
+const EditableFormTable = Form.create()(Lists);
 
 export default connect(({ auditCourse }) => ({
   auditList: auditCourse.auditList,

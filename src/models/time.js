@@ -1,4 +1,4 @@
-import {getTime, deleteRoomName, getLikeRoomName, insertRoomName} from "@/api/api";
+import {getTime, updateTime, deleteRoomName, getLikeRoomName, insertRoomName} from "@/api/api";
 
 const module = {
   namespace: 'time',
@@ -13,6 +13,11 @@ const module = {
       // debugger
       const rst = yield call(getTime);
       return rst;
+    },
+
+    * updateTimes(action, {call, put}) {
+      const rst = yield call(updateTime, action.payload);
+      return rst.data;
     },
 
     * deleteRoomName(action, {call, put}){

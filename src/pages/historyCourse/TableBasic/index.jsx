@@ -75,17 +75,7 @@ const Lists = (props) => {
             onCancel={handleCancel}
           ><p style={{}}>{ModalText}</p>
           </Modal>
-          <Modal
-            title="成绩"
-            visible={gradeVisible}
-            onOk={handleCancel}
-            cancelButtonProps={{
-              disabled: true,
-            }}
-            confirmLoading={confirmLoading}
-            onCancel={handleCancel}
-          ><p style={{}}>{ModalText}</p>
-          </Modal>
+          
           <Button onClick={() => showModal('你将要进行退选课程操作,请确定您的操作', record.id, record.state)}>{buttonText1}</Button>
       </span>
       ),
@@ -177,6 +167,7 @@ const Lists = (props) => {
   };
 
   const showModalGrade = (text) => {
+    console.log(123, text)
     setGradeVisible(true)
     setModalText(text)
   }
@@ -202,13 +193,11 @@ const Lists = (props) => {
   }
 
   const handleCancel = () => {
-    console.log('Clicked cancel button');
     setVisible(false)
     setGradeVisible(false)
   };
 
   useEffect(() => {
-    console.log(props)
     dispatch({
       type: 'courseList/getHistoryCourse',
     });
@@ -235,6 +224,17 @@ const Lists = (props) => {
              defaultPageSize={10}
              total={100}
       />
+      <Modal
+            title="成绩"
+            visible={gradeVisible}
+            onOk={handleCancel}
+            cancelButtonProps={{
+              disabled: true,
+            }}
+            confirmLoading={confirmLoading}
+            onCancel={handleCancel}
+          ><p style={{}}>{ModalText}</p>
+          </Modal>
     </div>
   </div>;
 };

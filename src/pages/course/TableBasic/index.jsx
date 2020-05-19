@@ -47,9 +47,13 @@ const Lists = (props) => {
       // ),
     },
     {
-      title: '选课人数',
+      title: '选课/已选人数',
       key: 'count',
       dataIndex: 'count',
+      render: (text, record) =>{
+
+      return <span>{record.count}/{record.selectCount}</span>
+      }
     },
     {
       title: '操作',
@@ -61,7 +65,6 @@ const Lists = (props) => {
       }
     },
   ];
-  console.log(props);
 
   const { dispatch } = props;
 

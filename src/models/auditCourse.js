@@ -1,4 +1,4 @@
-import {getCourseByUser} from "@/api/api";
+import {getCourseByUser, getSelectClassByCourseId} from "@/api/api";
 import {getAuthority} from "@/utils/authority";
 
 const module = {
@@ -20,12 +20,16 @@ const module = {
       })
       return rst;
     },
+
+    * getSelectClassByCourseId(action, {call, put}) {
+      const rst = yield call(getSelectClassByCourseId, action.payload)
+      return rst.data;
+    }
   },
 
 
   reducers: {
     changeCourseListInfo(state, {payload}) {
-      console.log(payload)
       return {
         ...state,
         auditList: payload.auditList,

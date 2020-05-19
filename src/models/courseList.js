@@ -1,4 +1,4 @@
-import {getCourseByUser, selectCourse, getHistoryCourse, unsubscribe, getGrade} from '../api/api';
+import {getCourseByUser, selectCourse, getHistoryCourse, unsubscribe, getGrade, setGrade} from '../api/api';
 import {getAuthority} from '@/utils/authority';
 
 const module = {
@@ -53,6 +53,11 @@ const module = {
       const rst = yield  call(getGrade, action.payload)
       return rst;
     },
+
+    * setGrade(action, {call, put}) {
+      const rst = yield call(setGrade, action.payload)
+      return rst.data;
+    }
   },
 
 

@@ -1,6 +1,6 @@
 import { PageHeaderWrapper } from '@ant-design/pro-layout';
 import React, { useState, useEffect } from 'react';
-import { Spin, Table, Button, Modal, Form, Input } from 'antd';
+import { Spin, Table, Button, Modal, Form, Input, DatePicker, message } from 'antd';
 import styles from './index.less';
 import Tablee from './Tablee'
 import { connect } from 'dva';
@@ -22,11 +22,12 @@ const TimeTable = (props) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
 
   //对话框 form 表单 数据
-  const [modData, setModData] = useState({})
+  const [modData, setModData] = useState({});
 
   const { dispatch, form } = props;
 
-  
+
+
   const layout = {
     labelCol: {
       span: 8
@@ -52,21 +53,34 @@ const TimeTable = (props) => {
       title: '开始选课时间',
       dataIndex: 'startTime',
       render: data => {
-        return <span defaultValue={moment(parseInt(data))} />;
+        if (data || data.length > 0) {
+          let times = moment(parseInt(data)).format("YYYY-MM-DD");
+          return <span> {times} </span>;
+        }
+        return <span>未知</span>
+
       }
     },
     {
       title: '结束选课时间',
       dataIndex: 'endTime',
       render: data => {
-        return <span defaultValue={moment(parseInt(data))} />;
+        if (data || data.length > 0) {
+          let times = moment(parseInt(data)).format("YYYY-MM-DD");
+          return <span> {times} </span>;
+        }
+        return <span>未知</span>
       }
     },
     {
       title: '开课时间',
       dataIndex: 'startClassTime',
       render: data => {
-        return <span defaultValue={moment(parseInt(data))} />;
+        if (data || data.length > 0) {
+          let times = moment(parseInt(data)).format("YYYY-MM-DD");
+          return <span> {times} </span>;
+        }
+        return <span>未知</span>
       }
     },
     {
@@ -79,16 +93,18 @@ const TimeTable = (props) => {
     }
   ]
 
-  const buttonOnClick = (data) =>{
+  const buttonOnClick = (data) => {
     setModData(data)
     setVisible(true)
 
-    console.log('no', modData)
-    
-    console.log('a', data)
+
   }
 
   useEffect(() => {
+    getData()
+  }, [])
+
+  const getData = () => {
     if (dispatch) {
       dispatch({
         type: 'time/getTime',
@@ -96,20 +112,40 @@ const TimeTable = (props) => {
         setData(rst.data.data)
       })
     }
-  }, [])
-
+  }
 
 
   const handleCancel = () => {
     setVisible(false)
-
+    form.resetFields();
   }
 
   const onFinish = (value) => {
     value.preventDefault();
 
     props.form.validateFields((err, values) => {
-      console.log('va', values)
+      if (!err && dispatch) {
+        dispatch({
+          type: 'time/updateTimes',
+          payload: {
+            id: modData.id,
+            timeName: values.timeName,
+            startTime: values.endTime ? values.endTime[0].valueOf() : null,
+            endTime: values.endTime ? values.endTime[1].valueOf() : null,
+            startClassTime: values.startClassTime ? values.startClassTime.valueOf() : null,
+          },
+        }).then((rst) => {
+          if (rst && rst.status === 200){
+            message.success('修改成功')
+            getData();
+            handleCancel();
+          }else{
+            message.error(rst.msg)
+          }
+        })
+      }else{
+        console.log(err)
+      }
 
     })
   }
@@ -125,7 +161,16 @@ const TimeTable = (props) => {
     }, 3000);
   }, []);
 
-  const {getFieldDecorator} = form;
+  const { getFieldDecorator } = form;
+  const { RangePicker } = DatePicker;
+
+  const rangeConfig = {
+    rules: [{ type: 'array',  message: 'Please select time!' }],
+  };
+
+  const config = {
+    rules: [{ type: 'object',  message: 'Please select time!' }],
+  };
   return (
     <PageHeaderWrapper content="这是一个新页面，从这里进行开发！" className={styles.main}>
       <div
@@ -146,36 +191,60 @@ const TimeTable = (props) => {
           visible={visible}
           confirmLoading={confirmLoading}
           onCancel={handleCancel}
-          footer = {null}
+          footer={null}
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
         >
           <Form
             form={form}
             {...layout}
             name="basic"
-            initialValues={{modData}}
             onSubmit={onFinish}
             style={{
               width: 500
             }}
           >
             <Form.Item
-              label="份: "
-              name="timeName"
-              rules={[
-                {
-                  required: true,
-                  message: "请输入课题名称!"
-                }
-              ]}
+              label="年份: "
               size={300}
             >
-              {getFieldDecorator('timeName')(
-            <Input placeholder="请输入授课课程名称"/>
-          )}
+              {getFieldDecorator('timeName', {
+                initialValue: modData.timeName
+              })
+                (<Input disabled placeholder="年份" />)}
+            </Form.Item>
+
+            <Form.Item
+              label='选课时间: '
+              size={300}
+            >
+              {getFieldDecorator('endTime', {
+                // initialValue: modData.endTime
+                // initialValue: moment(parseInt(modData.endTime)),
+                rangeConfig
+              })(
+                <RangePicker showTime format="YYYY-MM-DD HH:mm:ss" />,
+              )}
+            </Form.Item>
+
+
+
+            <Form.Item
+              label="开课时间: "
+              size={300}
+            >
+              {getFieldDecorator('startClassTime', {
+                initialValue: modData.startClassTime ? moment(parseInt(modData.startClassTime)) : null,
+                config
+              })
+                (<DatePicker />
+                )}
             </Form.Item>
 
             <Form.Item {...tailLayout}>
-              <Button type="primary" htmlType="修改">
+              <Button type="primary" htmlType="submit">
                 提交
             </Button>
             </Form.Item>

@@ -13,7 +13,6 @@ const module = {
     * getFacultyAll(action, {call}) {
       // debugger
       const rst = yield call(getFacultyAll, action.payload);
-      console.log(rst.data.data);
       return rst.data.data;
     },
 
@@ -35,7 +34,6 @@ const module = {
 
     * getHistCouAdmin(action, {call, put}) {
       const rst = yield call(getFacultyAll, action.payload);
-      console.log(rst);
       if (rst.status === 200 && rst.data.status === 200) {
         yield put({
           type: 'changeCourseListInfo',

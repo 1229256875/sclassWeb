@@ -29,12 +29,19 @@ instance.interceptors.request.use(
         // 获取token，配置请求头
         // const TOKEN = localStorage.getItem('Token')
         // 演示的token（注意配置请求头，需要后端做cros跨域处理，我这里自己前端配的跨域）
-        // const TOKEN = '1fd399bdd9774831baf555ae5979c66b';
         // const token = '1fd399bdd9774831baf555ae5979c66b';
+       
+        const Token = localStorage.getItem('Token');
+        if (config.url === '/api/setGrade'){
+            config.headers['Content-Type'] = 'application/json;charset=utf-8';
+            config.data = JSON.stringify(config.data)
+            config.headers['token'] = Token;
+            return config;
+        }
+
         if (config.method === 'post') {
             config.data = qs.stringify(config.data);
         }
-        const Token = localStorage.getItem('Token');
 
         if (Token) {
             // 配置请求头 token
@@ -48,10 +55,12 @@ instance.interceptors.request.use(
             // });
             config.headers['token'] = Token;
             config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
-            console.log(config)
+            
+
             // config.headers['token'] = token;
             // config.headers['Authorization'] = TOKEN;
         }
+        console.log(config)
         return config;
     },
     error => {

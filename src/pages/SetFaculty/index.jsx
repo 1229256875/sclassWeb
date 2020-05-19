@@ -147,7 +147,6 @@ const Faculty = props => {
     dispatch({
       type: "faculty/getFacultyAll"
     }).then(data => {
-      console.log("data", data);
       if (graphs) {
         graphs.changeData(data);
         graphs.fitView();

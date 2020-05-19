@@ -41,9 +41,19 @@ export function getGrade(params) {
         })
 }
 
+//设置成绩
+export function setGrade(params) {
+    return http.post('/api/setGrade', params)
+}
+
 //添加课程
 export function addCourse(params) {
     return http.post('/api/addCourse', params);
+}
+
+//通过课程id获取选课人信息
+export function getSelectClassByCourseId(params) {
+    return http.get('/api/getSelectClassByCourseId', params);
 }
 
 //管理员获取历史课程
@@ -78,12 +88,18 @@ export function getTime() {
 }
 
 //修改时间
-
-
+export function updateTime(params) {
+    return http.post('/api/updateTime', params)
+}
 
 //修改课程审核状态
 export function updateCourseApproval(params) {
     return http.post('/api/updateCourseApproval', params)
+}
+
+//修改课程信息
+export function updateCourse(params){
+    return http.post('/api/updateCourse', params)
 }
 //删除课程
 export function deleteCourse(params){
