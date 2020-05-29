@@ -10,6 +10,16 @@ export function Verify(params) {
     return http.get('/api/verify', params);
 }
 
+//删除用户
+export function deleteUser(params) {
+    return http.post('/api/deleteUser', params);
+}
+
+//注册
+export function register(params) {
+    return http.post('/api/register', params);
+}
+
 //获取课程信息接口
 export function getCourseByUser() {
     return http.get('/api/getCourseByUser');
@@ -67,6 +77,11 @@ export function getFacultyAll() {
     return http.get('/api/getFacultyAll');
 }
 
+//获取院系 list
+export function getFacultyInfo(params){
+    return http.post('/api/getFacultyInfo', params)
+}
+
 //添加院系
 export function insertFaculty(params) {
     return http.post('/api/insertFaculty', params);
@@ -121,3 +136,29 @@ export function deleteRoomName(params){
 export function getLikeRoomName(params){
     return http.get('/api/getLikeRoomName', params)
 }
+
+//获取账号信息
+export function getUser(){
+    return http.post('/api/getUser')
+}
+
+//修改自己的信息
+export function updateMeInfo(params){
+    return http.post('/api/updateMeInfo', params)
+}
+
+//修改自己的密码
+export function updatePwd(params){
+    return http.post('/api/updatePwd', params)
+}
+
+//查询学生列表
+export function getStudent(params) {
+    return http.post('/api/getStudent', params)
+}
+
+//查询教师列表
+export function getTeacher(params) {
+    return http.post('/api/getTeacher', params)
+}
+

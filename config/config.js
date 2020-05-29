@@ -199,30 +199,34 @@ export default {
             {
               name: 'accounts',
               icon: 'smile',
-              path: 'account',
+              path: 'manage',
               authority: ['admin'],
-              component: './admin',
               routes: [
                 {
                   name: 'student',
                   icon: 'smile',
-                  path: '/account/studentAccount',
-                  component: './account/studentAccount',
+                  path: '/manage/studentManage',
+                  component: './manage/studentManage',
+                  authority: ['admin'],
                 },
                 {
                   name: 'teacher',
                   icon: 'smile',
-                  path: '/account/teacherAccount',
-                  component: './account/teacherAccount',
+                  path: '/manage/teacherManage',
+                  component: './manage/teacherManage',
+                  authority: ['admin'],
                 },
-                {
-                  name: 'admin',
-                  icon: 'smile',
-                  path: '/account/adminAccounts',
-                  component: './account/adminAccounts',
-                },
-              ],
-            }, //个人信息
+                // {
+                //   name: 'admin',
+                //   icon: 'smile',
+                //   path: '/manage/adminManage',
+                //   component: './manage/adminManage',
+                //   authority: ['admin'],
+                // },
+              
+              ]
+            },
+             //个人信息
             {
               name: 'personInfo',
               icon: 'smile',

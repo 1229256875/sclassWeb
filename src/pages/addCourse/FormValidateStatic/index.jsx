@@ -6,7 +6,7 @@ import {connect} from 'dva';
 const formItemLayout = {
   labelCol: {
     xs: {
-      span: 24,
+      span: 6,
     },
     sm: {
       span: 5,
@@ -14,7 +14,7 @@ const formItemLayout = {
   },
   wrapperCol: {
     xs: {
-      span: 24,
+      span: 6,
     },
     sm: {
       span: 12,
@@ -25,6 +25,11 @@ const formItemLayout = {
 const AddCourse = (props) => {
   const {getFieldValue} = props.form;
   const {getFieldDecorator} = props.form;
+
+  const layout = {
+    labelCol: { span: 6 },
+    wrapperCol: { span: 12 },
+  };
 
   const submit = (e) => {
     e.preventDefault();

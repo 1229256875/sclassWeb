@@ -12,7 +12,7 @@ export default () => {
     }, 2000);
   }, []);
   return (
-    <PageHeaderWrapper content="这是一个新页面，从这里进行开发！" className={styles.main}>
+    <PageHeaderWrapper  className={styles.main}>
       <TableBasic />
       <div
         style={{

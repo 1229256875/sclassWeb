@@ -48,7 +48,7 @@ const UserLayout = props => {
                 <span className={styles.title}>选课系统</span>
               </Link>
             </div>
-            <div className={styles.desc}>商洛学院最大的选课系统、流畅、丝滑</div>
+            <div className={styles.desc}>振华培训机构最大的选课系统</div>
           </div>
           {children}
         </div>

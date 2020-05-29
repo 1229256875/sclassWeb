@@ -94,55 +94,6 @@ const Faculty = props => {
     handleCancel();
   };
 
-  // const create = (x, y, data) => {
-  //   const tree = (new G6.TreeGraph({
-  //     container: 'container',
-  //     x,
-  //     y,
-  //     linkCenter: false,
-  //     modes: {
-  //       default: [
-  //         {
-  //           type: 'collapse-expand',
-  //           onChange: function onChange(item, collapsed) {
-  //             const data = item.get('model').data;
-  //             data.collapsed = collapsed;
-  //             return true;
-  //           },
-  //           onSelect: function onSelect(item, collapsed) {
-  //           },
-  //           onDeselect: function onDesekect(item, collapsed) {
-  //           },
-  //         },
-  //         'drag-canvas',
-  //         'zoom-canvas',
-  //         'drag-node',
-  //       ],
-  //     },
-  //     defaultNode: {
-  //       size: 25,
-  //       style: {
-  //         fill: '#C6E5FF',
-  //         stroke: '#5B8FF9',
-  //       },
-  //     },
-  //     defaultEdge: {
-  //       style: {
-  //         stroke: '#A3B1BF',
-  //       },
-  //     },
-  //     layout: {
-  //       type: 'dendrogram',
-  //       direction: 'LR',
-  //       nodeSep: 20,
-  //       rankSep: 100,
-  //       radial: true,
-  //     },
-  //   }));
-  //   setGraph(tree);
-  //   return tree;
-  // };
-
   useEffect(() => {
     dispatch({
       type: "faculty/getFacultyAll"

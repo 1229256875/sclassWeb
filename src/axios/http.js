@@ -1,6 +1,7 @@
 import axios from 'axios'
 import history from '@/pages/.umi/history';
 import qs from 'qs';
+import { message } from 'antd';
 
 /**
  * 自定义实例默认值
@@ -124,17 +125,19 @@ function checkStatus(response) {
     if (status >= 200 && status < 300) {
         return response;
     }
+    message.error(response.data);
     if (status === 401) {
         if (!window.location.href.includes('/user/login')) {
             window.localStorage.clear();
             history.push('/user/login');
+
             /* eslint prefer-promise-reject-errors: 0 */
             return Promise.reject('验证失败，请重新登陆');
         } else {
             return response;
         }
     }
-    if (status === 403 || status === 400) {
+    if (status === 400) {
         if (!window.location.href.includes('/user/login')) {
             // dispatch(routerRedux.push('/exception/403'));
             // history.push('/user/login');
@@ -175,6 +178,5 @@ class http {
         return await instance.post(url, params);
     }
 }
-
 
 export default http;

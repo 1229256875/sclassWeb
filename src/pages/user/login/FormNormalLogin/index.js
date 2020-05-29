@@ -48,6 +48,7 @@ class NormalLoginForm extends React.Component {
     const {getFieldDecorator} = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
+        
         <Form.Item>
           {getFieldDecorator('username', {
             rules: [
@@ -70,6 +71,7 @@ class NormalLoginForm extends React.Component {
             />,
           )}
         </Form.Item>
+
         <Form.Item>
           {getFieldDecorator('password', {
             rules: [
@@ -95,17 +97,12 @@ class NormalLoginForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true,
-          })(<Checkbox>Remember me</Checkbox>)}
-          <a className="login-form-forgot" href="">
-            忘记密码
-          </a>
+          
+          <div style={{width: 288}}> </div>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
-          Or <a href="">register now!</a>
+          
         </Form.Item>
       </Form>
     );

@@ -3,7 +3,7 @@ import { router } from 'umi';
 import { fakeAccountLogin, getFakeCaptcha } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
-import { Login, Verify } from '@/api/api';
+import { Login, Verify, getUser, updateMeInfo, updatePwd, deleteUser, register } from '@/api/api';
 import { routerRedux } from 'dva/router';
 
 
@@ -28,9 +28,33 @@ const Model = {
       return response;
     },
 
-    // * getCaptcha({ payload }, { call }) {
-    //   yield call(getFakeCaptcha, payload);
-    // },
+    * getUser({ payload }, { call }) {
+      const rst = yield call(getUser);
+      return rst.data.data;
+    },
+    * updateMeInfo({ payload }, { call }) {
+      const rst = yield call(updateMeInfo,  payload);
+      return rst.data;
+    },
+
+    * updatePwd({ payload }, { call }) {
+      const rst = yield call(updatePwd,  payload);
+      return rst.data;
+    },
+
+    * deleteUser({ payload }, { call }) {
+      const rst = yield call(deleteUser,  payload);
+      return rst.data;
+    },
+
+    * register({ payload }, { call }) {
+      const rst = yield call(register,  payload);
+      return rst.data;
+    },
+
+
+
+
 
     logout() {
       const { redirect } = getPageQuery(); // Note: There may be security issues, please note

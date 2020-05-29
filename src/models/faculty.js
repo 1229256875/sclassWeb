@@ -1,4 +1,4 @@
-import {getFacultyAll, insertFaculty, updateFaculty, deleteFaculty} from "@/api/api";
+import {getFacultyAll, insertFaculty, updateFaculty, deleteFaculty, getFacultyInfo} from "@/api/api";
 import {act} from "react-dom/test-utils";
 
 const module = {
@@ -29,6 +29,11 @@ const module = {
     * deleteFaculty(action, {call}) {
       const rst = yield call(deleteFaculty, action.payload);
       return rst;
+    },
+
+    * getFacultyInfo(action, {call}) {
+      const rst = yield call(getFacultyInfo, action.payload);
+      return rst.data;
     },
 
 

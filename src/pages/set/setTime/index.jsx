@@ -172,7 +172,7 @@ const TimeTable = (props) => {
     rules: [{ type: 'object',  message: 'Please select time!' }],
   };
   return (
-    <PageHeaderWrapper content="这是一个新页面，从这里进行开发！" className={styles.main}>
+    <PageHeaderWrapper  className={styles.main}>
       <div
         style={{
           paddingTop: 10,

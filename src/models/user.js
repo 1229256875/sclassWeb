@@ -1,10 +1,21 @@
 import { queryCurrent, query as queryUsers } from '@/services/user';
+import {getStudent, getTeacher} from '@/api/api'
 const UserModel = {
   namespace: 'user',
   state: {
     currentUser: {},
   },
   effects: {
+
+  * getStudent( {payload}, {call}) {
+    const rst = yield call(getStudent, payload)
+    return rst.data.data;
+  },
+
+  * getTeacher( {payload}, {call}) {
+    const rst = yield call(getTeacher, payload)
+    return rst.data.data;
+  },
     // *fetch(_, { call, put }) {
     //   const response = yield call(queryUsers);
     //   yield put({
