@@ -208,7 +208,7 @@ const Faculty = props => {
           {addButtonText}
         </Button>
         <Button onClick={updateFaculty}>修改</Button>
-        <Button type="dashed" onClick={deleteFaculty}>
+        <Button type='danger' onClick={deleteFaculty}>
           删除
         </Button>
       </Modal>

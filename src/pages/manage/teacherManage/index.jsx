@@ -64,6 +64,11 @@ const TimeTable = (props) => {
     })
   }
 
+
+  useEffect(() =>{
+    props.form.resetFields()
+  }, [formData])
+
   useEffect(() => {
     getSelectOne()
   }, [facultyList])

@@ -42,6 +42,7 @@ const RegistrationForm = (props) => {
       const value = {
         ...values,
         id: formData.id,
+        type: formData.type,
       }
       if (!err) {
         console.log('Received values of form: ', values);
@@ -254,34 +255,19 @@ const RegistrationForm = (props) => {
 
         <Form.Item label="旧密码" >
           {getFieldDecorator('oldPwd', {
-            rules: [
-              {
-                required: true,
-                message: '请输入旧密码!',
-              },
-            ],
+            
           })(<Input.Password placeholder="请输入旧密码" />)}
         </Form.Item>
 
         <Form.Item label="新密码" >
           {getFieldDecorator('newPwd', {
-            rules: [
-              {
-                required: true,
-                message: '请输入新密码!',
-              },
-            ],
+            
           })(<Input.Password placeholder="请输入新密码" />)}
         </Form.Item>
 
         <Form.Item label="新密码" >
           {getFieldDecorator('newPwd1', {
-            rules: [
-              {
-                required: true,
-                message: '请再次输入新密码!',
-              },
-            ],
+            
           })(<Input.Password placeholder="请再次输入新密码！" />)}
         </Form.Item>
 
