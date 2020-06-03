@@ -332,7 +332,9 @@ const TimeTable = (props) => {
                 message: '请选择学院!',
               },
             ],
-          })(<Select >{openListFaculty}</Select>)}
+          })(<Select style={{
+            width:175
+          }}>{openListFaculty}</Select>)}
         </Form.Item>
         <br />
         <Row>

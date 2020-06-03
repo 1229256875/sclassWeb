@@ -146,23 +146,24 @@ const Faculty = props => {
           }
         });
         graph.on("node:mouseenter", e => {
-          // message.error(ev);
           timeOut.current = setTimeout(() => {
-            const nodeItem = e.item.defaultCfg.model;
-            console.log(nodeItem);
-            setNodeData(nodeItem);
-            setInputText(nodeItem.id);
-            if (nodeItem.teep === -1) {
-              setAddButtonText("添加学院");
-              setAddButtonVisible(false);
-            } else if (nodeItem.teep === 0) {
-              setAddButtonText("添加专业");
-              setAddButtonVisible(false);
-            } else {
-              setAddButtonText("添加");
-              setAddButtonVisible(true);
+            if (typeof(e.item.defaultCfg) !== 'undefined' && typeof(e.item.defaultCfg.model) !== 'undefined') {
+                const nodeItem = e.item.defaultCfg.model;
+                console.log(nodeItem);
+                setNodeData(nodeItem);
+                setInputText(nodeItem.id);
+                if (nodeItem.teep === -1) {
+                setAddButtonText("添加学院");
+                setAddButtonVisible(false);
+                } else if (nodeItem.teep === 0) {
+                setAddButtonText("添加专业");
+                setAddButtonVisible(false);
+                } else {
+                setAddButtonText("添加");
+                setAddButtonVisible(true);
+                }
+                setVisible(true);
             }
-            setVisible(true);
           }, 2000);
         });
 

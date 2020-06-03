@@ -396,7 +396,10 @@ const TimeTable = (props) => {
                 message: '请输入学院!',
               },
             ],
-          })(<Select onChange={facultyOnChange}>{openListFaculty}</Select>)}
+          })(<Select onChange={facultyOnChange}
+            style={{
+              width:175
+            }}>{openListFaculty}</Select>)}
         </Form.Item>
 <br/>
 
@@ -409,7 +412,10 @@ const TimeTable = (props) => {
                 message: '请输入电话!',
               },
             ],
-          })(<Select>{openClass}</Select>)}
+          })(<Select style={{
+            width:175
+          }}
+          >{openClass}</Select>)}
         </Form.Item>
         <br />
         <Form.Item label='年份'>
@@ -421,7 +427,9 @@ const TimeTable = (props) => {
                 message: '请输入学年!',
               },
             ],
-          })(<Select >
+          })(<Select style={{
+            width:175
+          }}>
             <Option value="2020">2020</Option>
             <Option value="2019">2019</Option>
             <Option value="2018">2018</Option>
