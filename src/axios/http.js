@@ -132,7 +132,7 @@ function checkStatus(response) {
             history.push('/user/login');
 
             /* eslint prefer-promise-reject-errors: 0 */
-            return Promise.reject('验证失败，请重新登陆');
+            return Promise.reject('验证失败，请重新登录');
         } else {
             return response;
         }

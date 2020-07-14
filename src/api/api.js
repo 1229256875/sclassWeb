@@ -1,6 +1,6 @@
 import http from '@/axios/http';
 
-//  登陆
+//  登录
 export function Login(params) {
     return http.post('/api/login', params);
 }

@@ -13,7 +13,7 @@ export default {
   'menu.accounts.student': '学生账户',
   'menu.accounts.teacher': '教师账户',
   'menu.accounts.admin': '管理员账户',
-  'menu.logout': '退出登陆',
+  'menu.logout': '退出登录',
   'menu.setFaculty': '学院管理',
   'menu.more-blocks': '更多区块',
   'menu.home': '首页',
